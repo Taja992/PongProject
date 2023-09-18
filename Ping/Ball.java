@@ -58,7 +58,8 @@ public class Ball extends Actor
     {
             //Ball Movement:
             setLocation(getX()+(ballMoveY*randomZ), getY()+(ballMoveX*randomZ));
-        
+            //setLocation(getX()+(ballMoveY), getY()+(ballMoveX));
+       
             //move(speed);
             checkBounceOffWalls();
             checkBounceOffCeiling();
@@ -122,14 +123,16 @@ public class Ball extends Actor
             delay--;
             if(hits % 50 == 0){
                 level++;
-                //ballMoveX++;
-                //ballMoveY++;
-                randomZ++;
+                ballMoveY++;
+                ballMoveX--;
+                //randomZ++;
                 delay = 10;
             }
             else if(hits % 10 == 0){
                 level++;
-                randomZ++;
+                ballMoveY++;
+                ballMoveX--;
+                //randomZ++;
                 delay = 10;
             }
         }
@@ -140,7 +143,7 @@ public class Ball extends Actor
         if (padBehav != null && paddleother == 1) {
             revertVertically();
             ballMoveX = -ballMoveX;
-            paddleother = 0;    
+            paddleother = 0;
         }        
         }
     
@@ -197,7 +200,7 @@ public class Ball extends Actor
      */
     private void revertHorizontally()
     {
-         if (getX() <10 || getX() > 490)
+         if (getX() < 10 || getX() > 490)
         {
             ballMoveY = -ballMoveY;
             //Greenfoot.playSound("bounce2.wav");
@@ -214,7 +217,7 @@ public class Ball extends Actor
      */
     private void revertVertically()
     {
-          if (getY() <10 || getY() > 690)
+          if (getY() < 10 || getY() > 690)
         {
             ballMoveX = -ballMoveX;
             //Greenfoot.playSound("bounce2.wav");
@@ -239,5 +242,9 @@ public class Ball extends Actor
     
     public int getLevel(){
         return level;
+    }
+    
+    public int getHits(){
+        return hits;
     }
 }

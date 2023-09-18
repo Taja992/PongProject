@@ -13,6 +13,7 @@ public class PingWorld extends World
     private static final int WORLD_HEIGHT = 500;
     private Counter levelCounter = new Counter("Level: ");
     private Ball ball;
+    private boolean spawnPaddle = false;
 
     /**
      * Constructor for objects of class PingWorld.
@@ -45,10 +46,17 @@ public class PingWorld extends World
     
     public void act(){
         levelCheck();
+        spawnPaddle();
         }
             
     private void levelCheck(){
         levelCounter.setValue(ball.getLevel() + 1);
     }
 
+    private void spawnPaddle(){
+        if(ball.getLevel() == 1 && spawnPaddle == false){
+            addObject(new PaddleOther(100, 10), Greenfoot.getRandomNumber(350)+1,Greenfoot.getRandomNumber(250)+1);
+            spawnPaddle = true;
+        }
+    }
 }
