@@ -18,10 +18,7 @@ public class PaddlePlayer extends Actor
      */ 
     public PaddlePlayer()
     {
- //       this.width = width;
- //       this.height = height;
- //       dx = 1;
- //       createImage();
+
     } 
 
     /**
@@ -31,7 +28,6 @@ public class PaddlePlayer extends Actor
     public void act() 
     {
         tryChangeDirection();
-  //      setLocation(getX() + dx, getY());
     }    
 
     /**
@@ -40,22 +36,12 @@ public class PaddlePlayer extends Actor
     private void tryChangeDirection()
     {
       int speed = 4;
-     
       if(Greenfoot.isKeyDown("right")){
             move(speed);
         }
       if(Greenfoot.isKeyDown("left")){
             move(-speed);
         } 
-        
-        //Check to see if we are touching the outer boundaries of the world:
-        // IF we are touching the right boundary OR we are touching the left boundary:
- /*       if(getX() + width/2 >= getWorld().getWidth() || getX() - width/2 <= 0)
-        {
-            //Change our 'x' direction to the inverted direction:
-            dx = dx * -1;
-        }
-        */
     }
 
     /**

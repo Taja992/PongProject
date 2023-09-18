@@ -11,12 +11,12 @@ public class Ball extends Actor
 {
     private static final int BALL_SIZE = 25;
     private static final int BOUNCE_DEVIANCE_MAX = 5;
-  //  private static final int STARTING_ANGLE_WIDTH = 90;
-  //  private static final int DELAY_TIME = 100;
+
     //ball movement:
     public int ballMoveX = 1;
     public int ballMoveY = 1;
     public int randomZ = 1;
+    
     //level:
     private int level = 0;
     private int hits = 0;
@@ -25,8 +25,8 @@ public class Ball extends Actor
     private int speed;
     private boolean hasBouncedHorizontally;
     private boolean hasBouncedVertically;
+    
     //private int delay;
-    private int ballY;
     private int paddleother = 0;    // Variable used to tell if bounce off or not
 
     /**
@@ -38,18 +38,6 @@ public class Ball extends Actor
         init();
         
     }
-
-    /**
-     * Creates and sets an image of a black ball to this actor.
-     */
- /*   private void createImage()
-    {
-        GreenfootImage ballImage = new GreenfootImage(BALL_SIZE,BALL_SIZE);
-        ballImage.setColor(Color.BLACK);
-        ballImage.fillOval(0, 0, BALL_SIZE, BALL_SIZE);
-        setImage(ballImage);
-    } */
-
     /**
      * Act - do whatever the Ball wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -58,14 +46,13 @@ public class Ball extends Actor
     {
             //Ball Movement:
             setLocation(getX()+(ballMoveY*randomZ), getY()+(ballMoveX*randomZ));
-            //setLocation(getX()+(ballMoveY), getY()+(ballMoveX));
-       
-            //move(speed);
+            //Checks
             checkBounceOffWalls();
             checkBounceOffCeiling();
             checkRestart();
             checkBounceOffPaddle();
-            otherPaddleBehavior(); // Allows ball to pass through or bounce off other paddle
+            // Allows ball to pass through or bounce off other paddle
+            otherPaddleBehavior(); 
         }
         
 
@@ -113,10 +100,11 @@ public class Ball extends Actor
         }
     }
     
-    private void checkBounceOffPaddle(){    //Checks to see if ball hits paddle and adds on to paddleother/changes direction
+    //Checks to see if ball hits paddle and adds on to paddleother/changes direction
+    //Increases level and speed
+    private void checkBounceOffPaddle(){    
         Actor ballPlayerPaddle = getOneIntersectingObject(PaddlePlayer.class);
         if(ballPlayerPaddle != null) {
-            //revertVertically();
             ballMoveX = -ballMoveX;            
             paddleother = 1;
             hits++;
@@ -125,20 +113,19 @@ public class Ball extends Actor
                 level++;
                 ballMoveY++;
                 ballMoveX--;
-                //randomZ++;
                 delay = 10;
             }
             else if(hits % 10 == 0){
                 level++;
                 ballMoveY++;
                 ballMoveX--;
-                //randomZ++;
                 delay = 10;
             }
         }
     }
     
-     private void otherPaddleBehavior(){    //Checks to see if ball will bounce off otherpaddle or not
+    //Checks to see if ball will bounce off otherpaddle or not 
+    private void otherPaddleBehavior(){    
         Actor padBehav = getOneIntersectingObject(PaddleOther.class);
         if (padBehav != null && paddleother == 1) {
             revertVertically();
@@ -147,32 +134,18 @@ public class Ball extends Actor
         }        
         }
     
-    
-    /*   private void otherPaddleBounce(){
-        Actor ballOtherPaddle = getOneIntersectingObject(PaddleOther.class);
-
-        if(ballOtherPaddle != null){
-                ballY = getY();
-                PaddleOther paddleother = (PaddleOther) ballOtherPaddle;
-                int otherPaddleLocation = paddleother.paddleY;
-            if(otherPaddleLocation > ballY){
-                 revertVertically();
-            }
-        }
-    } */
-    
     /**
      * Check to see if the ball should bounce off the ceiling.
      * If touching the ceiling the ball is bouncing off.
      */
     private void checkBounceOffCeiling()
     {
-        if (isTouchingCeiling())       //If ball hits roof it sets paddleother to 0 and will go through paddleother
+        if (isTouchingCeiling())       
         {
             if (! hasBouncedVertically)
             {
                 revertVertically();
-                paddleother = 0;
+                paddleother = 0; //If ball hits roof it sets paddleother to 0 and will go through enemy paddle
             }
         }
         else
@@ -180,7 +153,6 @@ public class Ball extends Actor
             hasBouncedVertically = false;
         }
     }
-
     /**
      * Check to see if the ball should be restarted.
      * If touching the floor the ball is restarted in initial position and speed.
@@ -189,8 +161,6 @@ public class Ball extends Actor
     {
         if (isTouchingFloor())
         {
-            //init();
-            //setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
             Greenfoot.setWorld(new IntroWorld());
         }
     }
@@ -206,11 +176,7 @@ public class Ball extends Actor
             //Greenfoot.playSound("bounce2.wav");
             hasBouncedHorizontally = true;
         }      
-        /* int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
-        setRotation((170 - getRotation()+ randomness + 360) % 360);
-        hasBouncedHorizontally = true; */
     }
-
     
     /**
      * Bounces the bal back from a horizontal surface.
@@ -223,9 +189,6 @@ public class Ball extends Actor
             //Greenfoot.playSound("bounce2.wav");
             hasBouncedVertically = true;
         }      
-        /*int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
-        setRotation((350 - getRotation()+ randomness + 360) % 360);
-        hasBouncedVertically = true;*/
     }
 
     /**
@@ -233,11 +196,8 @@ public class Ball extends Actor
      */
     private void init()
     {
-     //   speed = 2;
-     //   delay = DELAY_TIME;
         hasBouncedHorizontally = false;
         hasBouncedVertically = false;
-     //  setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2);
     }
     
     public int getLevel(){

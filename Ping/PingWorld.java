@@ -21,27 +21,18 @@ public class PingWorld extends World
     public PingWorld(boolean gameStarted)
     {
         super(WORLD_WIDTH, WORLD_HEIGHT, 1);
-
-        if (gameStarted)
-        {
-            //GreenfootImage background = getBackground();
+            if (gameStarted)
+            {
             ball = new Ball();
             addObject(levelCounter, 657, 13);
-
-            //background.setColor(Color.BLACK);
-            // Create a new world with WORLD_WIDTHxWORLD_HEIGHT cells with a cell size of 1x1 pixels.
             addObject(ball, WORLD_WIDTH/3, WORLD_HEIGHT/3);
-            //addObject(new PaddlePlayer(100,5), 60, WORLD_HEIGHT - 50);
             addObject(new PaddlePlayer(), 60, WORLD_HEIGHT - 50);
             addObject(new PaddleOther(100, 10), Greenfoot.getRandomNumber(350)+1,Greenfoot.getRandomNumber(250)+1);
-            //addObject(new PaddleOther(), Greenfoot.getRandomNumber(350)+1,Greenfoot.getRandomNumber(250)+1);
-
-        }
-        else
-        {
+            }
+            else
+            {
             Greenfoot.setWorld(new IntroWorld());
-        }
-
+            }
     }
     
     public void act(){
