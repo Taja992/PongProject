@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=PaddleOther
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ PaddleOther\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=width\ height
+comment1.target=PaddleOther(int,\ int)
+comment1.text=\r\n\ Constructs\ a\ new\ paddle\ with\ the\ given\ dimensions.\r\n
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ moving()
+comment3.text=\r\n\ Moves\ This\ paddle\ from\ one\ side\ to\ the\ other\ and\ respawns\ it\ randomly\ on\ other\ side\r\n
+numComments=4
