@@ -47,7 +47,8 @@ public class PaddlePlayer extends Actor
             if (canDashR){ //dash
                 count = 0;
                 canDashR = false;
-                dashCoolDown = 50;
+                dashCoolDown = 100;
+                Greenfoot.playSound("dash.wav");
                 setLocation(getX() + dashDist, getY());
             } else { //normal movement
                 havePressedR = true;
@@ -60,7 +61,8 @@ public class PaddlePlayer extends Actor
             if (canDashL){ //dash
                 count = 0;
                 canDashL = false;
-                dashCoolDown = 50;
+                dashCoolDown = 100;
+                Greenfoot.playSound("dash.wav");
                 setLocation(getX() - dashDist, getY());
             } else { //normal movement
                 havePressedL = true;
