@@ -49,7 +49,7 @@ public class Ball extends Actor
             checkBounceOffWalls();
             checkBounceOffCeiling();
             checkRestart();
-            checkBounceOffPaddle();
+            checkBounceOffPaddle(); // Deals with the leveling system+bounces ball back
             
             // Allows ball to pass through or bounce off other paddle
             otherPaddleBehavior(); 
@@ -92,6 +92,7 @@ public class Ball extends Actor
             if (! hasBouncedHorizontally)
             {
                 revertHorizontally();
+                Greenfoot.playSound("bounce2.wav");
             }
         }
         else
@@ -105,18 +106,21 @@ public class Ball extends Actor
     private void checkBounceOffPaddle(){    
         Actor ballPlayerPaddle = getOneIntersectingObject(PaddlePlayer.class);
         if(ballPlayerPaddle != null) {
-            ballMoveX = -ballMoveX;            
+            ballMoveX = -ballMoveX;
+            Greenfoot.playSound("bounce2.wav");
             paddleother = 1;
             hits++;
             delay--;
             if(hits % 50 == 0){
                 level++;
+                Greenfoot.playSound("ping.wav");
                 ballMoveY++;
                 ballMoveX--;
                 delay = 10;
             }
             else if(hits % 10 == 0){
                 level++;
+                Greenfoot.playSound("ping.wav");
                 ballMoveY++;
                 ballMoveX--;
                 delay = 10;
@@ -129,6 +133,7 @@ public class Ball extends Actor
         Actor padBehav = getOneIntersectingObject(PaddleOther.class);
         if (padBehav != null && paddleother == 1) {
             revertVertically();
+            Greenfoot.playSound("bounce2.wav");
             ballMoveX = -ballMoveX;
         }        
         }
@@ -144,6 +149,7 @@ public class Ball extends Actor
             if (! hasBouncedVertically)
             {
                 revertVertically();
+                Greenfoot.playSound("bounce2.wav");
                 paddleother = 0; //If ball hits roof it sets paddleother to 0 and will go through enemy paddle
             }
         }
@@ -160,6 +166,7 @@ public class Ball extends Actor
     {
         if (isTouchingFloor())
         {
+            Greenfoot.playSound("gameover.wav");
             Greenfoot.setWorld(new IntroWorld());
         }
     }
@@ -172,7 +179,7 @@ public class Ball extends Actor
          if (getX() < 10 || getX() > 490)
         {
             ballMoveY = -ballMoveY;
-            //Greenfoot.playSound("bounce2.wav");
+            Greenfoot.playSound("bounce2.wav");
             hasBouncedHorizontally = true;
         }      
     }
@@ -185,7 +192,7 @@ public class Ball extends Actor
           if (getY() < 10 || getY() > 690)
         {
             ballMoveX = -ballMoveX;
-            //Greenfoot.playSound("bounce2.wav");
+            Greenfoot.playSound("bounce2.wav");
             hasBouncedVertically = true;
         }      
     }

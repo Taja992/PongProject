@@ -22,8 +22,8 @@ public class IntroWorld extends World
         GreenfootImage background = getBackground();
         background.setFont(new Font("Arial", true, false, 15));
         background.setColor(Color.WHITE);
-        background.drawString("Hit <enter> to start game...", 230, 200);
-        background.drawString("Use arrow keys to control player paddle", 190, 300);
+        background.drawString("Press <enter> to start game...", 230, 200);
+        background.drawString("Use arrow keys to control player paddle\n                Double tap to Dash!\n       Hit the ball 10 times to level up!\n    But careful, the ball speeds up too!", 190, 300);
     }
     
     public void act()
