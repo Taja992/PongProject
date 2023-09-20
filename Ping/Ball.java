@@ -167,7 +167,7 @@ public class Ball extends Actor
         if (isTouchingFloor())
         {
             Greenfoot.playSound("gameover.wav");
-            Greenfoot.setWorld(new IntroWorld());
+            Greenfoot.setWorld(new GameOverWorld());
         }
     }
 

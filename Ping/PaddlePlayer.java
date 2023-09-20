@@ -17,10 +17,13 @@ public class PaddlePlayer extends Actor
     
     private boolean havePressedR = false;
     private boolean havePressedL = false;
-    private int count = 0; //window to dash
+    private int countL = 0; //window to dash
+    private int countR = 0; //window to dash
+    private int maxCount = 15;
     private boolean canDashR = false;
     private boolean canDashL = false;
     private int dashCoolDown = 0;
+    private int maxCoolDown = 240;
     private int dashDist = 200;
     /**
      * Constructs a new paddle with the given dimensions.
@@ -45,28 +48,28 @@ public class PaddlePlayer extends Actor
     private void dashControl(){
         if (Greenfoot.isKeyDown("right")){
             if (canDashR){ //dash
-                count = 0;
+                countR = 0;
                 canDashR = false;
-                dashCoolDown = 100;
+                dashCoolDown = maxCoolDown;
                 Greenfoot.playSound("dash.wav");
                 setLocation(getX() + dashDist, getY());
             } else { //normal movement
                 havePressedR = true;
-                count = 10;
+                countR = maxCount;
                 move(speed);
             }
         } 
         
         if(Greenfoot.isKeyDown("left")){
             if (canDashL){ //dash
-                count = 0;
+                countL = 0;
                 canDashL = false;
-                dashCoolDown = 100;
+                dashCoolDown = maxCoolDown;
                 Greenfoot.playSound("dash.wav");
                 setLocation(getX() - dashDist, getY());
             } else { //normal movement
                 havePressedL = true;
-                count = 10;
+                countL = maxCount;
                 move(-speed);
             }
         }    
@@ -79,32 +82,35 @@ public class PaddlePlayer extends Actor
         } else {
             canDashR = false;
         }
-        
+        //check whether we can dash (to the left)
         if (!Greenfoot.isKeyDown("left") && havePressedL && dashCoolDown == 0){
             canDashL = true;
         } else {
             canDashL = false;
         }
     }
-    
     private void dashClickTimeFrame(){
-        count--;  //time frame to double click movement key for dash
-        if (count == 0){ //make it so that we can't dash anymore if countdown is 0
+        countR--;  //decrease the time frame to double-click the movement key for dash
+        if (countR == 0){ //make it so that we can't dash anymore if countdown is 0
             havePressedR = false;
+        }
+        if(countR < 0){
+            countR = 0;
+        }
+        countL--;  //decrease the time frame to double-click the movement key for dash
+        if (countL == 0){ //make it so that we can't dash anymore if countdown is 0
             havePressedL = false;
         }
-        if(count < 0){
-            count = 0;
+        if(countL < 0){
+            countL = 0;
         }
     }
-    
     private void dashCooldown(){
-        dashCoolDown--;
+        dashCoolDown--; //decrease cooldown every second
         if(dashCoolDown < 0){
             dashCoolDown = 0;
         }    
     }
-    
     /**
      * Creates and sets an image for the paddle, the image will have the same dimensions as the paddles width and height.
      */
